@@ -5,7 +5,7 @@ App.controller('PLoginCtrl', ['$scope', 'Api', '$window', '$location', 'Storage'
         $scope.data = {};
 
         $scope.login = function(){
-            Api._login($scope.data.email, $scope.data.password).then(function(resp){
+            Api.login($scope.data.email, $scope.data.password).then(function(resp){
                 if($window.checkErrors(resp)){
                     return false;
                 }
