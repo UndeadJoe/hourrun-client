@@ -12,7 +12,9 @@ function($resource, CONST, $q, $http){
 
     self.r = function(){
         return $resource(_apiUrl + ':action/:param1/:param2/:param3', {}, {
-            usersSession: {method: 'POST', params: {action: 'users', param1: 'login'}}
+            usersSession: {method: 'POST', params: {action: 'users', param1: 'login'}},
+
+            gamesList: {method: 'GET', params: {action: 'games'}}
         });
     };
 
@@ -35,8 +37,12 @@ function($resource, CONST, $q, $http){
     };
 
     /* games API */
-    self._login = function(email, password){
+    self.login = function(email, password){
         return q('usersSession', {email: email, password: password});
+    };
+
+    self.companies = function(){
+        return q('gamesList');
     };
 
 }]);
