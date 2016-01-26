@@ -7,8 +7,10 @@
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "angular-motion": "latest",
+    "angular-resource": "latest",
     "angular-ui-tree": "2.1.5",
     "bootstrap": "3.3.1",
-    "html5-boilerplate": "~5.2.0"
+    "html5-boilerplate": "~5.2.0",
+    "underscore": "latest"
   }
 }
