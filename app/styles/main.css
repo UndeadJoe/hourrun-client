@@ -1,5 +1,18 @@
 /* app css stylesheet */
 
+
+html, body  {
+    height: 100%;
+}
+
+body{
+    padding-top: 70px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
 .menu {
     list-style: none;
     border-bottom: 0.1em solid black;
@@ -27,4 +40,17 @@
 .menu > li:nth-child(1):before {
     content: "";
     padding: 0;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.vmiddle {
+    vertical-align: middle;
+}
+
+.wp100 {
+    width: 100%;
 }
