@@ -5,8 +5,9 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
     $scope.activeTab = 'parameters';
     $scope.selectedGame = {}; //selected game in nav list
     $scope.selectedGameId = $routeParams.selectedId;
-    $scope.selectedGame = {}; //selected game in nav list
     $scope.selectedGameStatus = {};
+    $scope.newSettings = {};
+
     $scope.gameStatuses = {};
     $scope.gameStatusesArray = [
         {step: 0, status: 'new', ready: false, msg: 'Creating primary DB record', icon: 'glyphicon-file', class: 'status-yellow'},
@@ -49,6 +50,8 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
             $scope.selectedGameId = id;
             $scope.selectedGameStatus = $scope.gameStatuses[game.status];
             $scope.$parent.selectedGameName = game.title;
+
+            $scope.newSettings.title = game.title;
             $scope.loadGame(game);
         }
     };
@@ -56,7 +59,7 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
     $scope.saveGame = function(){
         $scope.showNotify('Сохраняю "' + $scope.selectedGame.title + '"...', 'info', 3);
 
-        Api.gameSettingsObjSave($scope.selectedGameId,  $scope.selectedGame).then(function(resp){
+        Api.gameSettingsObjSave($scope.selectedGameId,  $scope.newSettings).then(function(resp){
             if($window.checkErrors(resp)) return;
             $scope.showNotify('"' + $scope.selectedGame.title + '" сохранено', 'success', 3);
             $scope.$parent.selectedGameName = $scope.selectedGame.title;

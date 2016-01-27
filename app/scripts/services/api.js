@@ -17,7 +17,7 @@ function($resource, CONST, $q, $http){
             gamesList:  {method: 'GET', params: {action: 'games'}},
             games:      {method: 'GET', params: {action: 'games'}},
 
-            gameSettingsSave: {method: 'POST', params: {action: 'games'}}
+            gameSettingsSave: {method: 'PUT', params: {action: 'games'}}
         });
     };
 
@@ -33,11 +33,11 @@ function($resource, CONST, $q, $http){
         }, dfd.reject, dfd.notify);
 
         return dfd.promise;
-    };
+    }
 
     function q(method, data, queryParams){
         return cleanResp(self.r()[method](queryParams, data).$promise);
-    };
+    }
 
     /* games API */
     self.login = function(email, password){
@@ -53,7 +53,7 @@ function($resource, CONST, $q, $http){
     };
 
     self.gameSettingsObjSave = function(id, data){
-        return q('gameSettingsSave', data, {param1: id, param2: 'save'});
+        return q('gameSettingsSave', data, {param1: id, param2: 'update'});
     };
 
 }]);
