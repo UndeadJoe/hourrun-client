@@ -1,4 +1,4 @@
-<div class="container companies-page companies-page-content">
+<div class="container games-page games-page-content">
     <h2 class="text-center m0">Соревнования</h2>
 
     <div class="games-nav">
@@ -8,7 +8,7 @@
                     <button type="button" class="form-control btn btn-primary" ng-click="input.showNewGameInput = !input.showNewGameInput"><i class="glyphicon glyphicon-plus"></i> Новая игра</button>
                 </div>
                 <div class="form-group input-group" ng-show="input.showNewGameInput">
-                    <input type="text" class="form-control" ng-model="input.addCompanyName" ng-keydown="($event.which === 13 && input.newGameTitle) && newGame()" focus="input.showNewGameInput" placeholder="Название игры">
+                    <input type="text" class="form-control" ng-model="input.addGameName" ng-keydown="($event.which === 13 && input.newGameTitle) && newGame()" focus="input.showNewGameInput" placeholder="Название игры">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" ng-click="newGame()" ng-disabled="!input.newGameTitle">Создать</button>
 					</span>
@@ -16,5 +16,65 @@
             </div>
         </div>
         <hr>
+
+        <div>
+            <div class="form-group" ng-show="games.length">
+                <input type="text" class="form-control" ng-model="gameFilter.name" placeholder="Filter by name" ng-keydown="$event.which === 27 && (gameFilter.name = '')">
+            </div>
+            <div class="list-group">
+                <li ng-repeat="game in games | orderBy:'title' | filter:gameFilter" class="list-group-item node-item games-page-content" ng-class="{'list-group-item-info': selectedGame._id === game._id}">
+                    <div class="table-div">
+                        <div class="table-cell vmiddle" title="{{gameStatuses[game.status].msg}}">
+                            <i class="mr5 glyphicon" ng-class="gameStatuses[game.status].class + ' ' + gameStatuses[game.status].icon"></i>
+                        </div>
+                        <div class="table-cell vmiddle wp100 pr5">
+                            <a href="" ng-hide="isEditGame" class="ib wp100" ng-click="selectedGame._id !== game._id && selectGame(game._id)">{{game.title}}</a>
+							<span ng-show="isEditGame" class="input-group">
+								<input type="text" ng-model="game.newName" class="form-control" focus="isEditGame === true" ng-keydown="($event.which === 13) && (isEditGame = false || editGameName(game._id))">
+								<span class="input-group-btn">
+									<button type="button" ng-click="(isEditGame = false) || (game.newName = game.name)" class="btn btn-default" ng-disabled="loadStatus.gameUpdate"><span class="glyphicon glyphicon-remove"></span></button>
+									<button type="button" ng-click="isEditGame = false || editGameName(game._id)" class="btn btn-default" ng-disabled="loadStatus.gameUpdate"><span class="glyphicon glyphicon-ok"></span></button>
+								</span>
+							</span>
+                        </div>
+                        <div class="table-cell vmiddle nowrap">
+                            <button type="button" class="btn btn-default glyphicon glyphicon-pencil p5" ng-click="isEditGame = true" title="Edit"></button>
+                            <button type="button" class="btn btn-default glyphicon glyphicon-trash p5" ng-click="deleteGame(game._id)" title="Delete"></button>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <div class="games-content">
+        <div ng-if="selectedGame._id">
+            <div class="col-sm-8 col-lg-9 col-sm-offset-4 col-lg-offset-3">
+                <h3 class="m0 mb10 text-left">{{selectedGame.title}}</h3>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="list-group" ng-if="selectedGame.loaded">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-lg-3 control-label">Service URL</label>
+                        <div class="col-sm-8 col-lg-9">
+                            <p class="form-control-static">{{selectedGame.startedTime}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs" role="tablist">
+                    <li ng-class="{'active': activeTab === 'parameters'}"><a href="" ng-click="activeTab = 'parameters'">Parameters</a></li>
+                    <li ng-class="{'active': activeTab === 'administrators'}"><a href="" ng-click="activeTab = 'administrators'">Administrators</a></li>
+                    <li><a href="#/nodes">Worksheets</a></li>
+                </ul>
+
+                <div class="pt20">
+                    <ng-include src="'views/primary/_gamesParameters.html'"></ng-include>
+                    <ng-include src="'views/primary/_gamesAdministrators.html'"></ng-include>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
