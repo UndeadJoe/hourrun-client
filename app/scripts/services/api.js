@@ -14,7 +14,8 @@ function($resource, CONST, $q, $http){
         return $resource(_apiUrl + ':action/:param1/:param2/:param3', {}, {
             usersSession: {method: 'POST', params: {action: 'users', param1: 'login'}},
 
-            gamesList: {method: 'GET', params: {action: 'games'}}
+            gamesList:  {method: 'GET', params: {action: 'games'}},
+            games:      {method: 'GET', params: {action: 'games'}}
         });
     };
 
@@ -41,8 +42,12 @@ function($resource, CONST, $q, $http){
         return q('usersSession', {email: email, password: password});
     };
 
-    self.companies = function(){
+    self.games = function(){
         return q('gamesList');
+    };
+
+    self.game = function(id){
+        return q('game', {}, {param1: id});
     };
 
 }]);
