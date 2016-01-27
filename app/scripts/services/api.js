@@ -15,7 +15,9 @@ function($resource, CONST, $q, $http){
             usersSession: {method: 'POST', params: {action: 'users', param1: 'login'}},
 
             gamesList:  {method: 'GET', params: {action: 'games'}},
-            games:      {method: 'GET', params: {action: 'games'}}
+            games:      {method: 'GET', params: {action: 'games'}},
+
+            gameSettingsSave: {method: 'POST', params: {action: 'games'}}
         });
     };
 
@@ -48,6 +50,10 @@ function($resource, CONST, $q, $http){
 
     self.game = function(id){
         return q('game', {}, {param1: id});
+    };
+
+    self.gameSettingsObjSave = function(id, data){
+        return q('gameSettingsSave', data, {param1: id, param2: 'save'});
     };
 
 }]);

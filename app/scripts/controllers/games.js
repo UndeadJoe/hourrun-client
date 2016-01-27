@@ -2,6 +2,7 @@ App.controller('PGamesCtrl', ['$scope', 'Api', '$window', '$routeParams', '$loca
 function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
     $scope.games = [];
     $scope.input = {};
+    $scope.activeTab = 'parameters';
     $scope.selectedGame = {}; //selected game in nav list
     $scope.selectedGameId = $routeParams.selectedId;
     $scope.selectedGame = {}; //selected game in nav list
@@ -52,11 +53,21 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
         }
     };
 
+    $scope.saveGame = function(){
+        $scope.showNotify('Сохраняю "' + $scope.selectedGame.title + '"...', 'info', 3);
+
+        Api.gameSettingsObjSave($scope.selectedGameId,  $scope.selectedGame).then(function(resp){
+            if($window.checkErrors(resp)) return;
+            $scope.showNotify('"' + $scope.selectedGame.title + '" сохранено', 'success', 3);
+            $scope.$parent.selectedGameName = $scope.selectedGame.title;
+        }, $scope.showReqError);
+    };
+
     $scope.loadGame = function(game) {
         //Api.apiUrl('');
         if (!game || !game._id) return;
 
-        game.loaded = false;
+        game.loaded = true;
         game.settings = {};
         game.admins = [];
         $scope.selectedGame = game;
@@ -69,13 +80,7 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
                 return;
             }
 
-            /*var settingsReq = Api.gameSettings().then(function(resp){
-                if($window.checkErrors(resp) || game._id !== settingsReq.gameId) return;
-                game.settings = resp;
-            });
-            settingsReq.gameId = game._id;
-
-            var adminsReq = Api.gameAdministrators().then(function(resp){
+            /*var adminsReq = Api.gameAdministrators().then(function(resp){
                 if($window.checkErrors(resp) || game._id !== adminsReq.gameId) return;
                 game.admins = resp.data;
                 angular.forEach(game.admins, function(admin){

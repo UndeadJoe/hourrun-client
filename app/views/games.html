@@ -19,7 +19,7 @@
 
         <div>
             <div class="form-group" ng-show="games.length">
-                <input type="text" class="form-control" ng-model="gameFilter.name" placeholder="Filter by name" ng-keydown="$event.which === 27 && (gameFilter.name = '')">
+                <input type="text" class="form-control" ng-model="gameFilter.title" placeholder="Фильтр по названию" ng-keydown="$event.which === 27 && (gameFilter.title = '')">
             </div>
             <div class="list-group">
                 <li ng-repeat="game in games | orderBy:'title' | filter:gameFilter" class="list-group-item node-item games-page-content" ng-class="{'list-group-item-info': selectedGame._id === game._id}">
@@ -57,7 +57,7 @@
             <div class="list-group" ng-if="selectedGame.loaded">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-4 col-lg-3 control-label">Service URL</label>
+                        <label class="col-sm-4 col-lg-3 control-label">Дата события:</label>
                         <div class="col-sm-8 col-lg-9">
                             <p class="form-control-static">{{selectedGame.startedTime}}</p>
                         </div>
@@ -65,14 +65,37 @@
                 </div>
 
                 <ul class="nav nav-tabs" role="tablist">
-                    <li ng-class="{'active': activeTab === 'parameters'}"><a href="" ng-click="activeTab = 'parameters'">Parameters</a></li>
-                    <li ng-class="{'active': activeTab === 'administrators'}"><a href="" ng-click="activeTab = 'administrators'">Administrators</a></li>
-                    <li><a href="#/nodes">Worksheets</a></li>
+                    <li ng-class="{'active': activeTab === 'parameters'}"><a href="" ng-click="activeTab = 'parameters'">Параметры</a></li>
+                    <li ng-class="{'active': activeTab === 'marks'}"><a href="" ng-click="activeTab = 'marks'">Ход забега (метки)</a></li>
+                    <li ng-class="{'active': activeTab === 'players'}"><a href="" ng-click="activeTab = 'players'">Участники</a></li>
+                    <li ng-class="{'active': activeTab === 'referee'}"><a href="" ng-click="activeTab = 'referee'">Судьи</a></li>
                 </ul>
 
                 <div class="pt20">
-                    <ng-include src="'views/primary/_gamesParameters.html'"></ng-include>
-                    <ng-include src="'views/primary/_gamesAdministrators.html'"></ng-include>
+                    <form class="form-horizontal" role="form" ng-submit="saveGame()" ng-show="activeTab === 'parameters'">
+
+                        <div class="form-group">
+                            <label class="col-sm-4 col-lg-3 control-label">Название забега</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" ng-model="selectedGame.newName" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div>
+                            <div class="mt20 form-group">
+                                <div class="col-sm-8 col-lg-8 col-sm-offset-2 col-lg-offset-2">
+                                    <button type="submit" class="form-control btn btn-success">Сохранить игру</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div ng-show="activeTab === 'marks'">
+                        метки
+                    </div>
                 </div>
             </div>
         </div>

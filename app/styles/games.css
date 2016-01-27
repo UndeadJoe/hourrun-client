@@ -1,0 +1,58 @@
+.games-page-content {
+    nav-width: 400px;
+}
+
+h2{
+    height: 50px;
+    line-height: 50px;
+}
+
+.games-page{
+     width: auto;
+     min-width: 630px;
+}
+
+.games-nav {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    width: 300px;
+    padding: 0 10px;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+    z-index: 2;
+    background-color: #fff;
+}
+
+.list-group{
+    overflow-y: auto;
+}
+
+
+.games-content {
+    margin-left: 300px;
+}
+
+.thumbnail{
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.status-yellow{
+    color: yellow;
+}
+.status-green{
+    color: green;
+}
+.status-red {
+    color: red;
+}
+
+
+li:last-of-type:after{
+     display: none;
+}
+
+li.active{
+     font-weight: bold;
+}
