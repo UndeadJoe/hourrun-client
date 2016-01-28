@@ -14,7 +14,7 @@ h2{
 
 .games-nav {
     position: fixed;
-    top: 50px;
+    top: 150px;
     bottom: 0;
     width: 300px;
     padding: 0 10px;
@@ -24,7 +24,7 @@ h2{
     background-color: #fff;
 }
 
-.list-group{
+.games-nav.list-group{
     overflow-y: auto;
 }
 

@@ -15,7 +15,7 @@ function($resource, CONST, $q, $http){
             usersSession: {method: 'POST', params: {action: 'users', param1: 'login'}},
 
             gamesList:  {method: 'GET', params: {action: 'games'}},
-            games:      {method: 'GET', params: {action: 'games'}},
+            game:      {method: 'GET', params: {action: 'games'}},
 
             gameSettingsSave: {method: 'PUT', params: {action: 'games'}}
         });
