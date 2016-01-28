@@ -54,3 +54,37 @@ body{
 .wp100 {
     width: 100%;
 }
+
+.bottom-notification {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    margin: 10px;
+    opacity: 0.9;
+    color: white;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 5px;
+    z-index: 1100;
+}
+
+.bottom-notification:hover{
+     opacity: 1;
+ }
+
+.bottom-notification.notify-error{
+     background-color: red;
+ }
+.bottom-notification.notify-success{
+     background-color: green;
+ }
+.bottom-notification.notify-info{
+     background-color: blue;
+ }
+
+.bottom-notification.ng-hide-add, .bottom-notification.ng-hide-remove {
+    display: block !important;
+}
+

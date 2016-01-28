@@ -57,9 +57,13 @@
             <div class="list-group" ng-if="selectedGame.loaded">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-4 col-lg-3 control-label">Дата события:</label>
+                        <label class="col-sm-4 col-lg-3 control-label">Начало забега:</label>
                         <div class="col-sm-8 col-lg-9">
-                            <p class="form-control-static">{{selectedGame.startedTime}}</p>
+                            <p class="form-control-static">{{selectedGame.startedTime | date: 'dd.MM.yyyy HH:mm'}}</p>
+                        </div>
+                        <label class="col-sm-4 col-lg-3 control-label">Окончание забега:</label>
+                        <div class="col-sm-8 col-lg-9">
+                            <p class="form-control-static">{{selectedGame.stoppedTime | date: 'dd.MM.yyyy HH:mm'}}</p>
                         </div>
                     </div>
                 </div>
@@ -81,6 +85,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-4 col-lg-3 control-label">Дистанция (метры)</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" ng-model="newSettings.distance" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 col-lg-3 control-label">Продолжительность забега (минуты)</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" ng-model="newSettings.duration" class="form-control">
+                            </div>
+                        </div>
+
                         <div class="clearfix"></div>
                         <hr>
                         <div>
@@ -94,7 +112,11 @@
                     </form>
 
                     <div ng-show="activeTab === 'marks'">
-                        метки
+                        <li ng-repeat="mark in currentGame.marks" class="list-group-item node-item games-page-content">
+                            <div class="table-div">
+                                {{mark.date | date: 'HH:mm'}} - {{mark.number}}
+                            </div>
+                        </li>
                     </div>
                 </div>
             </div>

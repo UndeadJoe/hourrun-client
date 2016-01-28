@@ -6,7 +6,8 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
     $scope.selectedGame = {}; //selected game in nav list
     $scope.selectedGameId = $routeParams.selectedId;
     $scope.selectedGameStatus = {};
-    $scope.newSettings = {};
+    $scope.currentGame = {}; // more info about selected game
+    $scope.newSettings = {}; // settings for update
 
     $scope.gameStatuses = {};
     $scope.gameStatusesArray = [
@@ -45,13 +46,21 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
     $scope.selectGame = function(id){
         var game = Utils.searchInArrayById($scope.games, id);
         if(game){
+            Api.game(id).then(function(resp){
+                if($window.checkErrors(resp)) return;
+                $scope.currentGame = resp.game || {};
+            }, $scope.showReqError);
+
             $scope.input.showAddGameAdminForm = false;
             $scope.selectedGame = game;
             $scope.selectedGameId = id;
             $scope.selectedGameStatus = $scope.gameStatuses[game.status];
             $scope.$parent.selectedGameName = game.title;
+            $scope.$parent.selectedGameId = id;
 
             $scope.newSettings.title = game.title;
+            $scope.newSettings.distance = game.distance;
+            $scope.newSettings.duration = game.duration;
             $scope.loadGame(game);
         }
     };
