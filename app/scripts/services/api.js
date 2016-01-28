@@ -12,12 +12,12 @@ function($resource, CONST, $q, $http){
 
     self.r = function(){
         return $resource(_apiUrl + ':action/:param1/:param2/:param3', {}, {
-            usersSession: {method: 'POST', params: {action: 'users', param1: 'login'}},
+            usersSession:   {method: 'POST', params: {action: 'users', param1: 'login'}},
+            logout:         {method: 'PUT', params: {action: 'users', param1: 'logout'}},
 
-            gamesList:  {method: 'GET', params: {action: 'games'}},
-            game:      {method: 'GET', params: {action: 'games'}},
-
-            gameSettingsSave: {method: 'PUT', params: {action: 'games'}}
+            gamesList:      {method: 'GET', params: {action: 'games'}},
+            game:           {method: 'GET', params: {action: 'games'}},
+            gameSave:       {method: 'PUT', params: {action: 'games'}}
         });
     };
 
@@ -44,6 +44,10 @@ function($resource, CONST, $q, $http){
         return q('usersSession', {email: email, password: password});
     };
 
+    self.logout = function(email){
+        return q('logout', {email: email});
+    };
+
     self.games = function(){
         return q('gamesList');
     };
@@ -53,7 +57,7 @@ function($resource, CONST, $q, $http){
     };
 
     self.gameSettingsObjSave = function(id, data){
-        return q('gameSettingsSave', data, {param1: id, param2: 'update'});
+        return q('gameSave', data, {param1: id, param2: 'update'});
     };
 
 }]);
