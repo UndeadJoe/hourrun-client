@@ -1,0 +1,91 @@
+@import "compass";
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  padding-top: 70px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+
+  &:before {
+    content: "[";
+  }
+
+  &:after {
+    content: "]";
+  }
+
+  > li {
+    display: inline;
+
+    &:before {
+      content: "|";
+      padding-right: 0.3em;
+    }
+
+    &:nth-child(1):before {
+      content: "";
+      padding: 0;
+    }
+  }
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.vmiddle {
+  vertical-align: middle;
+}
+
+.wp100 {
+  width: 100%;
+}
+
+.bottom-notification {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  margin: 10px;
+  opacity: 0.9;
+  color: white;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 5px;
+  z-index: 1100;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.notify-error {
+    background-color: red;
+  }
+
+  &.notify-success {
+    background-color: green;
+  }
+
+  &.notify-info {
+    background-color: blue;
+  }
+
+  &.ng-hide-add, &.ng-hide-remove {
+    display: block !important;
+  }
+}
