@@ -55,6 +55,14 @@ module.exports = function(grunt) {
             }
         },
 
+        // Automatically inject Bower components into the app
+        'bower-install': {
+            app: {
+                html: '<%= conf.app %>/index.html',
+                ignorePath: '<%= conf.app %>/'
+            }
+        },
+
         // Add vendor prefixed styles
         autoprefixer: {
             options: {
@@ -103,15 +111,6 @@ module.exports = function(grunt) {
                         },
                         replace: {
                             js: '\'{{filePath}}\','
-                        }
-                    },
-                    css: {
-                        block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-                        detect: {
-                            css: /'(.*\.css)'/gi
-                        },
-                        replace: {
-                            css: '\'{{filePath}}\','
                         }
                     }
                 }
@@ -175,11 +174,6 @@ module.exports = function(grunt) {
                     cwd: '.tmp/concat/scripts',
                     dest: '<%= conf.dist %>/scripts',
                     src: ['*.js']
-                }, {
-                    expand: true,
-                    cwd: '.tmp/concat/styles',
-                    dest: '<%= conf.dist %>/styles',
-                    src: ['*.css']
                 }]
             },
             views: {
@@ -208,6 +202,7 @@ module.exports = function(grunt) {
         'autoprefixer',
         'concat',
         'copy:dist',
+        'cssmin',
         'usemin',
         'copy:views'
     ]);
