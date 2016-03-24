@@ -15,7 +15,8 @@ module.exports = function(grunt) {
     // Configurable paths for the application
     var appConfig = {
         app: require('./bower.json').appPath || 'app',
-        dist: 'www'
+        dist: 'www',
+        config: grunt.option("config") || 'local'
     };
 
     // 1. Всё конфигурирование тут
@@ -194,8 +195,18 @@ module.exports = function(grunt) {
 
     });
 
+    grunt.registerTask('setConfig', function(){
+        var config = grunt.option('config') || 'local',
+            path = grunt.config('conf.app') + '/scripts/constants.js',
+            fl = grunt.file.read(path, {encoding: 'utf8'});
+
+        fl = fl.replace(/(config\:)([\d\w\'\" ]+)(,*)$/igm, "$1 '" + config + "'$3");
+        grunt.file.write(path, fl, {encoding: 'utf8'});
+    });
+
     grunt.registerTask('build', [
         'clean:dist',
+        'setConfig',
         'wiredep',
         'useminPrepare',
         'compass:dist',

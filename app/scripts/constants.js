@@ -1,6 +1,15 @@
 'use strict';
 
 App.constant('CONST', {
-    //serverUrl: 'http://10.0.0.109:3001/',
-    serverUrl: 'http://localhost:3000/'
+    local: {
+        serverUrl: 'http://localhost:3000/',
+        debug: true
+    },
+
+    dev: {
+        serverUrl: 'http://hourrun.psrv3.citronium.com/',
+        debug: true
+    },
+
+    config: 'local'
 });
