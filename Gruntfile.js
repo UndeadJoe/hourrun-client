@@ -19,6 +19,7 @@ module.exports = function(grunt) {
     };
 
     // 1. Всё конфигурирование тут
+    //noinspection JSAnnotator
     grunt.initConfig({
 
         conf: appConfig,
@@ -38,7 +39,8 @@ module.exports = function(grunt) {
                 httpFontsPath: '/styles/fonts',
                 relativeAssets: false,
                 assetCacheBuster: false,
-                raw: 'Sass::Script::Number.precision = 10\n'
+                raw: 'Sass::Script::Number.precision = 10\n',
+                noLineComments: true
             },
             dist: {
                 options: {
@@ -102,6 +104,15 @@ module.exports = function(grunt) {
                         replace: {
                             js: '\'{{filePath}}\','
                         }
+                    },
+                    css: {
+                        block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
+                        detect: {
+                            css: /'(.*\.css)'/gi
+                        },
+                        replace: {
+                            css: '\'{{filePath}}\','
+                        }
                     }
                 }
             }
@@ -159,13 +170,23 @@ module.exports = function(grunt) {
                     cwd: '.tmp/images',
                     dest: '<%= conf.dist %>/images',
                     src: ['generated/*']
+                }, {
+                    expand: true,
+                    cwd: '.tmp/concat/scripts',
+                    dest: '<%= conf.dist %>/scripts',
+                    src: ['*.js']
+                }, {
+                    expand: true,
+                    cwd: '.tmp/concat/styles',
+                    dest: '<%= conf.dist %>/styles',
+                    src: ['*.css']
                 }]
             },
-            styles: {
+            views: {
                 expand: true,
-                cwd: '<%= conf.app %>/styles',
-                dest: '.tmp/styles/',
-                src: '{,*/}*.css'
+                cwd: '<%= conf.app %>/views',
+                dest: '<%= conf.dist %>/views',
+                src: ['*.html']
             }
         },
 
@@ -187,7 +208,8 @@ module.exports = function(grunt) {
         'autoprefixer',
         'concat',
         'copy:dist',
-        'usemin'
+        'usemin',
+        'copy:views'
     ]);
 
     grunt.registerTask('default', [
