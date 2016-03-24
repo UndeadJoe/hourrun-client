@@ -9,6 +9,9 @@ App.controller('MainCtrl', ['$scope', '$timeout', '$location', '$window', '$root
 
         $scope.selectedCompany = Storage.get('selectedCompany', {});
         $scope.selectedCompanyName = $scope.selectedCompany.name;
+        
+        $rootScope.CONST = _.extend(CONST, CONST[CONST.config]);
+
         Api.apiUrl(CONST.serverUrl || '');
 
         $scope.$on('$routeChangeSuccess', function (scope, next, current) {
