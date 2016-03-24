@@ -16,6 +16,5 @@ App.controller('PLoginCtrl', ['$scope', 'Api', '$window', '$location', 'Storage'
             }, $scope.showReqError);
         };
 
-
         $scope.checkAuth(true);
     }]);
