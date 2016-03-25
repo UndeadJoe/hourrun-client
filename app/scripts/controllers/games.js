@@ -128,11 +128,15 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
     };
 
     $scope.saveGame = function(){
-        $scope.showNotify('Сохраняю "' + $scope.selectedGame.title + '"...', 'info', 3);
+        var newSettings = {
+            'title': $scope.selectedGame.title,
+            'distance': $scope.selectedGame.distance,
+            'duration': $scope.selectedGame.duration
+        };
 
-        Api.gameSettingsObjSave($scope.selectedGameId,  $scope.newSettings).then(function(resp){
+        Api.gameSettingsObjSave($scope.selectedGameId,  newSettings).then(function(resp){
             if($window.checkErrors(resp)) return;
-            $scope.showNotify('"' + $scope.selectedGame.title + '" сохранено', 'success', 3);
+            $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" сохранено', 'success', 3);
             $scope.$parent.selectedGameName = $scope.selectedGame.title;
 
             $scope.selectGame($scope.selectedGameId);
