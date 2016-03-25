@@ -72,8 +72,8 @@
 
                 <div class="form-horizontal form-group">
                     <button class="col-sm-4 form-control btn btn-success" ng-click="startGame(selectedGame._id)">Начать игру</button>
-                    <button class="col-sm-4 form-control btn btn-success">Остановить</button>
-                    <button class="col-sm-4 form-control btn btn-success">Перезапустить</button>
+                    <button class="col-sm-4 form-control btn btn-success" ng-click="stopGame(selectedGame._id)">Остановить</button>
+                    <button class="col-sm-4 form-control btn btn-success" ng-click="restartGame(selectedGame._id)">Перезапустить</button>
                 </div>
 
                 <ul class="nav nav-tabs" role="tablist">
