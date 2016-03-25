@@ -65,6 +65,35 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
         }
     };
 
+    $scope.newGame = function(){
+        var data = {'title': $scope.newGameTitle};
+
+        $scope.showNotify('Создание соревнования "' + data.title + '"...', 'info', 3);
+
+        Api.newGame(data).then(function(resp){
+            if($window.checkErrors(resp)) return;
+            $scope.showNotify('"' + data.title + '" создано', 'success', 3);
+
+            $scope.games.push(resp);
+        }, $scope.showReqError);
+    };
+
+    $scope.startGame = function(id){
+
+        Api.gameStart(id).then(function(resp){
+            if(resp.error == null) {
+                $scope.selectedGame.startedTime = resp.result.startedTime;
+                $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" запущено!', 'success', 3);
+            }
+            else {
+                $scope.showNotify('Невозможно запустить соревнование', 'error', 5);
+            }
+
+        }, function(resp){
+            $scope.showReqError(resp);
+        });
+    };
+
     $scope.saveGame = function(){
         $scope.showNotify('Сохраняю "' + $scope.selectedGame.title + '"...', 'info', 3);
 

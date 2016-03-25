@@ -195,6 +195,7 @@ module.exports = function(grunt) {
 
     });
 
+    // Меняем текущий конфиг на выбранный
     grunt.registerTask('setConfig', function(){
         var config = grunt.option('config') || 'local',
             path = grunt.config('conf.app') + '/scripts/constants.js',
