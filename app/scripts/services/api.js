@@ -20,6 +20,7 @@ function($resource, CONST, $q, $http){
             newGame:        {method: 'POST', params: {action: 'games', param1: 'create'}},
             gameSave:       {method: 'PUT', params: {action: 'games'}},
             gameStart:      {method: 'PUT', params: {action: 'games'}},
+            gameRestart:    {method: 'PUT', params: {action: 'games'}},
             gameStop:       {method: 'PUT', params: {action: 'games'}}
         });
     };
@@ -69,6 +70,14 @@ function($resource, CONST, $q, $http){
 
     self.gameStart = function(id){
         return q('gameStart', {}, {param1: id, param2: 'start'});
+    };
+
+    self.gameStop = function(id){
+        return q('gameStop', {}, {param1: id, param2: 'stop'});
+    };
+
+    self.gameRestart = function(id){
+        return q('gameRestart', {}, {param1: id, param2: 'restart'});
     };
 
     self.gameStop = function(id){

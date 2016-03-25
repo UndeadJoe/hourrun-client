@@ -94,6 +94,39 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
         });
     };
 
+    $scope.stopGame = function(id){
+
+        Api.gameStop(id).then(function(resp){
+            if(resp.error == null) {
+                $scope.selectedGame.stoppedTime = resp.result.stoppedTime;
+                $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" остановленно!', 'success', 3);
+            }
+            else {
+                $scope.showNotify('Невозможно остановить соревнование', 'error', 5);
+            }
+
+        }, function(resp){
+            $scope.showReqError(resp);
+        });
+    };
+
+    $scope.restartGame = function(id){
+
+        Api.gameRestart(id).then(function(resp){
+            if(resp.error == null) {
+                $scope.selectedGame.startedTime = resp.result.startedTime;
+                $scope.selectedGame.stoppedTime = resp.result.stoppedTime;
+                $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" перезапущено!', 'success', 3);
+            }
+            else {
+                $scope.showNotify('Невозможно повтороно запустить соревнование', 'error', 5);
+            }
+
+        }, function(resp){
+            $scope.showReqError(resp);
+        });
+    };
+
     $scope.saveGame = function(){
         $scope.showNotify('Сохраняю "' + $scope.selectedGame.title + '"...', 'info', 3);
 
@@ -101,6 +134,8 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
             if($window.checkErrors(resp)) return;
             $scope.showNotify('"' + $scope.selectedGame.title + '" сохранено', 'success', 3);
             $scope.$parent.selectedGameName = $scope.selectedGame.title;
+
+            $scope.selectGame($scope.selectedGameId);
         }, $scope.showReqError);
     };
 
