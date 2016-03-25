@@ -17,6 +17,7 @@ function($resource, CONST, $q, $http){
 
             gamesList:      {method: 'GET', params: {action: 'games'}},
             game:           {method: 'GET', params: {action: 'games'}},
+            newGame:        {method: 'POST', params: {action: 'games', param1: 'create'}},
             gameSave:       {method: 'PUT', params: {action: 'games'}},
             gameStart:      {method: 'PUT', params: {action: 'games'}},
             gameStop:       {method: 'PUT', params: {action: 'games'}}
@@ -58,16 +59,20 @@ function($resource, CONST, $q, $http){
         return q('game', {}, {param1: id});
     };
 
+    self.newGame = function(data){
+        return q('newGame', data);
+    };
+
     self.gameSettingsObjSave = function(id, data){
         return q('gameSave', data, {param1: id, param2: 'update'});
     };
 
-    self.gameStart = function(id, data){
-        return q('gameStart', data, {param1: id, param2: 'start'});
+    self.gameStart = function(id){
+        return q('gameStart', {}, {param1: id, param2: 'start'});
     };
 
-    self.gameStop = function(id, data){
-        return q('gameStop', data, {param1: id, param2: 'stop'});
+    self.gameStop = function(id){
+        return q('gameStop', {}, {param1: id, param2: 'stop'});
     };
 
 }]);
