@@ -24,7 +24,7 @@
                 <input type="text" class="form-control" ng-model="gameFilter.title" placeholder="Фильтр по названию" ng-keydown="$event.which === 27 && (gameFilter.title = '')">
             </div>
             <div class="list-group">
-                <li ng-repeat="game in games | orderBy:'title' | filter:gameFilter" class="list-group-item node-item games-page-content item-hover" ng-class="{'list-group-item-info': selectedGame._id === game._id}">
+                <li ng-repeat="game in games | orderBy:'title' | filter:gameFilter" class="list-group-item node-item games-page-content" ng-class="{'item-hover': selectedGame._id != game._id, 'list-group-item-info': selectedGame._id === game._id}">
                     <div class="table-div">
                         <div class="table-cell vmiddle" title="{{gameStatuses[game.status].msg}}">
                             <i class="mr5 glyphicon" ng-class="gameStatuses[game.status].class + ' ' + gameStatuses[game.status].icon"></i>
@@ -89,26 +89,25 @@
                         <div class="form-group">
                             <label class="col-sm-4 col-lg-3 control-label">Название забега</label>
                             <div class="col-sm-8 col-lg-9">
-                                <input type="text" ng-model="newSettings.title" class="form-control">
+                                <input type="text" ng-model="selectedGame.title" class="form-control">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-4 col-lg-3 control-label">Дистанция (метры)</label>
                             <div class="col-sm-8 col-lg-9">
-                                <input type="text" ng-model="newSettings.distance" class="form-control">
+                                <input type="text" ng-model="selectedGame.distance" class="form-control">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-4 col-lg-3 control-label">Продолжительность забега (минуты)</label>
                             <div class="col-sm-8 col-lg-9">
-                                <input type="text" ng-model="newSettings.duration" class="form-control">
+                                <input type="text" ng-model="selectedGame.duration" class="form-control">
                             </div>
                         </div>
 
-                        <div class="clearfix"></div>
-                        <hr>
+                        <div class="clearfix"></div><hr>
                         <div>
                             <div class="mt20 form-group">
                                 <div class="col-sm-8 col-lg-8 col-sm-offset-2 col-lg-offset-2">
