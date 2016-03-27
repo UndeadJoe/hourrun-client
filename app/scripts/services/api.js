@@ -13,7 +13,8 @@ function($resource, CONST, $q, $http){
     self.r = function(){
         return $resource(_apiUrl + ':action/:param1/:param2/:param3', {}, {
             usersSession:   {method: 'POST', params: {action: 'users', param1: 'login'}},
-            logout:         {method: 'PUT', params: {action: 'users', param1: 'logout'}},
+            signup:         {method: 'POST', params: {action: 'users', param1: 'signup'}},
+            logout:         {method: 'GET', params: {action: 'users', param1: 'logout'}},
 
             gamesList:      {method: 'GET', params: {action: 'games'}},
             game:           {method: 'GET', params: {action: 'games'}},
@@ -21,7 +22,9 @@ function($resource, CONST, $q, $http){
             gameSave:       {method: 'PUT', params: {action: 'games'}},
             gameStart:      {method: 'PUT', params: {action: 'games'}},
             gameRestart:    {method: 'PUT', params: {action: 'games'}},
-            gameStop:       {method: 'PUT', params: {action: 'games'}}
+            gameStop:       {method: 'PUT', params: {action: 'games'}},
+
+            userRoles:      {method: 'GET', params: {action: 'settings', param1: 'roles'}}
         });
     };
 
@@ -46,6 +49,10 @@ function($resource, CONST, $q, $http){
     /* games API */
     self.login = function(email, password){
         return q('usersSession', {email: email, password: password});
+    };
+
+    self.signup = function(data){
+        return q('signup', data);
     };
 
     self.logout = function(email){
@@ -82,6 +89,10 @@ function($resource, CONST, $q, $http){
 
     self.gameStop = function(id){
         return q('gameStop', {}, {param1: id, param2: 'stop'});
+    };
+
+    self.userRoles = function(){
+        return q('userRoles');
     };
 
 }]);

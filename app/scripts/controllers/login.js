@@ -1,20 +1,16 @@
 'use strict';
 
-App.controller('PLoginCtrl', ['$scope', 'Api', '$window', '$location', 'Storage', '$rootScope',
-    function($scope, Api, $window, $location, Storage, $rootScope){
+App.controller('LoginCtrl', ['$scope', 'Api', '$window', '$location',
+    function($scope, Api, $window, $location){
         $scope.data = {};
 
         $scope.login = function(){
+
             Api.login($scope.data.email, $scope.data.password).then(function(resp){
                 if($window.checkErrors(resp)){
                     return false;
                 }
-                var auth = angular.extend({password: $scope.data.password}, resp);
-                $rootScope.auth = resp;
-                Storage.set('auth', auth, false);
                 return $location.path('/games');
             }, $scope.showReqError);
         };
-
-        $scope.checkAuth(true);
     }]);

@@ -1,4 +1,4 @@
-App.controller('PGamesCtrl', ['$scope', 'Api', '$window', '$routeParams', '$location', 'Storage', '$q', 'Utils',
+App.controller('GamesCtrl', ['$scope', 'Api', '$window', '$routeParams', '$location', 'Storage', '$q', 'Utils',
 function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
     $scope.games = [];
     $scope.input = {};
@@ -29,7 +29,7 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
         angular.forEach($scope.gameStatusesArray, function(item){
             $scope.gameStatuses[item.status] = item;
         });
-    };
+    }
 
 
     function getGames(){
@@ -41,7 +41,7 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
             });
             $scope.selectedGameId && $scope.selectGame($scope.selectedGameId);
         }, $scope.showReqError);
-    };
+    }
 
     $scope.selectGame = function(id){
         var game = Utils.searchInArrayById($scope.games, id);
