@@ -4,16 +4,16 @@ App.config(['$routeProvider', function($routeProvider){
     $routeProvider
         .when('/login', {
             templateUrl: 'views/login.html',
-            controller: 'PLoginCtrl'
+            controller: 'LoginCtrl'
         })
         .when('/games/:selectedId?', {
             templateUrl: 'views/games.html',
-            controller: 'PGamesCtrl',
+            controller: 'GamesCtrl',
             showGameName: true
         })
-        .when('/restore/?', {
-            templateUrl: 'views/restore.html',
-            controller: 'RestoreCtrl'
+        .when('/signup', {
+            templateUrl: 'views/signup.html',
+            controller: 'SignupCtrl'
         })
 
         .otherwise({
