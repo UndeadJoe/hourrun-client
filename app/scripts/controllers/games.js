@@ -154,30 +154,5 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
         Storage.set('selectedGame', game);
 
         var auth = Storage.get('auth', {});
-
-        var loginReq = Api.login(auth.email, auth.password).then(function(resp){
-            if($window.checkErrors(resp) || game._id !== loginReq.gameId){
-                return;
-            }
-
-            /*var adminsReq = Api.gameAdministrators().then(function(resp){
-                if($window.checkErrors(resp) || game._id !== adminsReq.gameId) return;
-                game.admins = resp.data;
-                angular.forEach(game.admins, function(admin){
-                    admin.newEmail = admin.email;
-                });
-            }, $scope.showReqError);
-            adminsReq.gameId = game._id;*/
-
-            /*$q.all([settingsReq, adminsReq]).then(function(){
-                game.loaded = true;
-            }).finally(function(){
-                $scope.loadStatus.game = false;
-            });*/
-
-        }, function(resp){
-                $scope.showReqError(resp);
-            });
-        loginReq.gameId = game._id;
     };
 }]);
