@@ -9,7 +9,7 @@ App.config(['$routeProvider', function($routeProvider){
         .when('/games/:selectedId?', {
             templateUrl: 'views/games.html',
             controller: 'GamesCtrl',
-            showGameName: true
+            showGameTitle: true
         })
         .when('/signup', {
             templateUrl: 'views/users/signup.html',
