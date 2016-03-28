@@ -1,8 +1,9 @@
 'use strict';
 
-App.controller('LoginCtrl', ['$scope', 'Api', '$window', '$location',
-    function($scope, Api, $window, $location){
+App.controller('LoginCtrl', ['$scope', 'Api', '$window', '$rootScope', '$location',
+    function($scope, Api, $window, $rootScope, $location){
         $scope.data = {};
+        $rootScope.pageTitle = "Вход в систему";
 
         $scope.login = function(){
 

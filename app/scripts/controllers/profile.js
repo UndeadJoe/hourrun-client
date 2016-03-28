@@ -1,6 +1,7 @@
-App.controller('ProfileCtrl', ['$scope', 'Api', '$window', '$routeParams', '$location',
-function($scope, Api, $window, $routeParams, $location){
+App.controller('ProfileCtrl', ['$scope', 'Api', '$window', '$rootScope', '$routeParams', '$location',
+function($scope, Api, $window, $rootScope, $routeParams, $location){
     $scope.user = {};
+    $rootScope.pageTitle = "Профиль пользователя";
 
     /* INIT */
     (function(){

@@ -1,13 +1,13 @@
-App.controller('GamesCtrl', ['$scope', 'Api', '$window', '$routeParams', '$location', 'Storage', '$q', 'Utils',
-function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
+App.controller('GamesCtrl', ['$scope', 'Api', '$window', '$rootScope', '$routeParams', '$location', 'Storage', '$q', 'Utils',
+function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q, Utils){
     $scope.games = [];
+    $rootScope.pageTitle = "Соревнования";
     $scope.input = {};
     $scope.activeTab = 'parameters';
     $scope.selectedGame = {}; //selected game in nav list
     $scope.selectedGameId = $routeParams.selectedId;
     $scope.selectedGameStatus = {};
     $scope.currentGame = {}; // more info about selected game
-    $scope.newSettings = {}; // settings for update
 
     $scope.gameStatuses = {};
     $scope.gameStatusesArray = [
@@ -58,9 +58,8 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
             $scope.$parent.selectedGameName = game.title;
             $scope.$parent.selectedGameId = id;
 
-            $scope.newSettings.title = game.title;
-            $scope.newSettings.distance = game.distance;
-            $scope.newSettings.duration = game.duration;
+            $rootScope.pageTitle = game.title;
+
             $scope.loadGame(game);
         }
     };

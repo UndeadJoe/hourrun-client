@@ -1,6 +1,7 @@
-App.controller('SignupCtrl', ['$scope', 'Api', '$window', '$routeParams', '$location',
-function($scope, Api, $window, $routeParams, $location){
+App.controller('SignupCtrl', ['$scope', 'Api', '$window', '$rootScope', '$routeParams', '$location',
+function($scope, Api, $window, $rootScope, $routeParams, $location){
     $scope.data = {};
+    $rootScope.pageTitle = "Регистрация";
     $scope.roles = {};
 
     $scope.data.inviteID = $routeParams['id'] || '';

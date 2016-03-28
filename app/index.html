@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" ng-app="hourrunAdmin"  ng-controller="MainCtrl">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Панель управления</title>
+    <title>Часовой бег - {{pageTitle || "Панель управления"}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="styles/games.css">
     <!-- endbuild -->
 </head>
-<body ng-app="hourrunAdmin"  ng-controller="MainCtrl">
+<body>
 
     <div ng-include="'views/header.html'"></div>
     <div ng-view></div>
