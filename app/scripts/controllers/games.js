@@ -52,7 +52,8 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
             }, $scope.showReqError);
 
             $scope.input.showAddGameAdminForm = false;
-            $scope.selectedGame = game;
+            $scope.selectedGame = $scope.currentGame;
+
             $scope.selectedGameId = id;
             $scope.selectedGameStatus = $scope.gameStatuses[game.status];
             $scope.$parent.selectedGameName = game.title;
@@ -60,7 +61,7 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
 
             $rootScope.pageTitle = game.title;
 
-            $scope.loadGame(game);
+            $scope.loadGame($scope.currentGame);
         }
     };
 
