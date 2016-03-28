@@ -1,7 +1,7 @@
 syntax: glob
 .idea/*
-node_modules/*
+node_modules
 app/bower_components/*
-.sass-cache/*
-.tmp/*
+.sass-cache
+.tmp
 www
