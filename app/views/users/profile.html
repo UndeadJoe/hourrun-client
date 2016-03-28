@@ -1,0 +1,31 @@
+<div class="container">
+    <h1 class="text-center m0">Профиль пользователя</h1>
+
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-3">
+            <form ng-submit="signup()" name="signupForm" class="form-horizontal">
+                <div class="form-group row">
+                    <label class="col-sm-4 control-label">Имя</label>
+                    <div class="col-sm-8"><input type="text" ng-model="user.name" class="form-control" required placeholder="Иван"></div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 control-label">Фамилия</label>
+                    <div class="col-sm-8"><input type="text" ng-model="user.surname" class="form-control" required placeholder="Иванов"></div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 control-label">Email</label>
+                    <div class="col-sm-8"><input type="email" ng-model="user.email" class="form-control" required placeholder="mail@mail.ru"></div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 control-label">Тип аккаунта</label>
+                    <label class="col-sm-8 control-label">{{ user.role }}</label>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary wp50" ng-disabled="signupForm.$invalid">Обновить профиль</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -82,7 +82,8 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
 
         Api.gameStart(id).then(function(resp){
             if(resp.error == null) {
-                $scope.selectedGame.startedTime = resp.result.startedTime;
+                var data = (resp.result || {});
+                $scope.selectedGame.startedTime = data.startedTime || $scope.selectedGame.startedTime;
                 $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" запущено!', 'success', 3);
             }
             else {
@@ -98,7 +99,8 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
 
         Api.gameStop(id).then(function(resp){
             if(resp.error == null) {
-                $scope.selectedGame.stoppedTime = resp.result.stoppedTime;
+                var data = (resp.result || {});
+                $scope.selectedGame.stoppedTime = data.stoppedTime || $scope.selectedGame.stoppedTime;
                 $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" остановленно!', 'success', 3);
             }
             else {

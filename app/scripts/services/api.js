@@ -13,6 +13,7 @@ function($resource, CONST, $q, $http){
     self.r = function(){
         return $resource(_apiUrl + ':action/:param1/:param2/:param3', {}, {
             usersSession:   {method: 'POST', params: {action: 'users', param1: 'login'}},
+            userProfile:    {method: 'GET', params: {action: 'users', param1: 'profile'}},
             signup:         {method: 'POST', params: {action: 'users', param1: 'signup'}},
             logout:         {method: 'GET', params: {action: 'users', param1: 'logout'}},
 
@@ -49,6 +50,10 @@ function($resource, CONST, $q, $http){
     /* games API */
     self.login = function(email, password){
         return q('usersSession', {email: email, password: password});
+    };
+
+    self.userProfile = function(){
+        return q('userProfile');
     };
 
     self.signup = function(data){

@@ -3,7 +3,7 @@
 App.config(['$routeProvider', function($routeProvider){
     $routeProvider
         .when('/login', {
-            templateUrl: 'views/login.html',
+            templateUrl: 'views/users/login.html',
             controller: 'LoginCtrl'
         })
         .when('/games/:selectedId?', {
@@ -12,8 +12,12 @@ App.config(['$routeProvider', function($routeProvider){
             showGameName: true
         })
         .when('/signup', {
-            templateUrl: 'views/signup.html',
+            templateUrl: 'views/users/signup.html',
             controller: 'SignupCtrl'
+        })
+        .when('/profile', {
+            templateUrl: 'views/users/profile.html',
+            controller: 'ProfileCtrl'
         })
 
         .otherwise({

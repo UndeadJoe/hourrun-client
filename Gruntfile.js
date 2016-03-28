@@ -162,6 +162,7 @@ module.exports = function(grunt) {
                     src: [
                         '*.{ico,png,txt}',
                         '*.html',
+                        'views/{,*/}*.html',
                         //'images/{,*/}*.{webp}',
                         'styles/fonts/{,*/}*.*'
                     ]
@@ -175,13 +176,17 @@ module.exports = function(grunt) {
                     cwd: '.tmp/concat/scripts',
                     dest: '<%= conf.dist %>/scripts',
                     src: ['*.js']
+                }, {
+                    expand: true,
+                    cwd: '<%= conf.app %>/bower_components/bootstrap/fonts',
+                    dest: '<%= conf.dist %>/fonts',
+                    src: ['*']
+                }, {
+                    expand: true,
+                    cwd: '<%= conf.app %>/bower_components/font-awesome/fonts',
+                    dest: '<%= conf.dist %>/fonts',
+                    src: ['*']
                 }]
-            },
-            views: {
-                expand: true,
-                cwd: '<%= conf.app %>/views',
-                dest: '<%= conf.dist %>/views',
-                src: ['*.html']
             }
         },
 
@@ -215,8 +220,7 @@ module.exports = function(grunt) {
         'concat',
         'copy:dist',
         'cssmin',
-        'usemin',
-        'copy:views'
+        'usemin'
     ]);
 
     grunt.registerTask('default', [
