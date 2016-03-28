@@ -20,7 +20,7 @@ function($resource, CONST, $q, $http){
             gamesList:      {method: 'GET', params: {action: 'games'}},
             game:           {method: 'GET', params: {action: 'games'}},
             gameRemove:     {method: 'DELETE', params: {action: 'games'}},
-            newGame:        {method: 'POST', params: {action: 'games', param1: 'create'}},
+            newGame:        {method: 'POST', params: {action: 'games'}},
             gameSave:       {method: 'PUT', params: {action: 'games'}},
             gameStart:      {method: 'PUT', params: {action: 'games'}},
             gameRestart:    {method: 'PUT', params: {action: 'games'}},

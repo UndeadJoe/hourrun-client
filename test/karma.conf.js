@@ -32,6 +32,7 @@ module.exports = function(config) {
             'app/bower_components/angular-ui-tree/dist/angular-ui-tree.js',
             'app/bower_components/bootstrap/dist/js/bootstrap.js',
             'app/bower_components/underscore/underscore.js',
+            'app/bower_components/bootbox.js/bootbox.js',
             // endbower
             "app/scripts/**/*.js"
         ],

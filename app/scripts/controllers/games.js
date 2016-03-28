@@ -67,6 +67,8 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
 
     $scope.newGame = function(){
         var data = {'title': $scope.newGameTitle};
+        $scope.newGameTitle = '';
+        $scope.input.showNewGameInput = false;
 
         $scope.showNotify('Создание соревнования "' + data.title + '"...', 'info', 3);
 
@@ -99,21 +101,21 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
 
         var game = Utils.searchInArrayById($scope.games, id);
 
-        if(!game || !confirm('Are you sure you want to delete "' + game.title + '"?')){
-            return false;
-        }
+        bootbox.confirm("Удалить соревнование '" + game.title + "'?", function(result) {
+            if(game && (result === true)) {
+                Api.gameRemove(id).then(function (resp) {
+                    if (resp.error == null) {
+                        $scope.showNotify('Соревнование "' + game.title + '" удалено', 'success', 3);
+                        getGames();
+                    }
+                    else {
+                        $scope.showNotify('Невозможно удалить соревнование', 'error', 5);
+                    }
 
-        Api.gameRemove(id).then(function(resp){
-            if(resp.error == null) {
-                $scope.showNotify('Соревнование "' + game.title + '" удалено', 'success', 3);
-                getGames();
+                }, function (resp) {
+                    $scope.showReqError(resp);
+                });
             }
-            else {
-                $scope.showNotify('Невозможно удалить соревнование', 'error', 5);
-            }
-
-        }, function(resp){
-            $scope.showReqError(resp);
         });
     };
 
