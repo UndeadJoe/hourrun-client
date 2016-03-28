@@ -6,18 +6,14 @@ App.controller('MainCtrl', ['$scope', '$timeout', '$location', '$window', '$root
         $rootScope.$location = $location;
         $rootScope.auth = Storage.get('auth', {});
         $scope.notify = {msg: '', show: false, type: ''};
-
-        $scope.selectedCompany = Storage.get('selectedCompany', {});
-        $scope.selectedCompanyName = $scope.selectedCompany.name;
         
         $rootScope.CONST = _.extend(CONST, CONST[CONST.config]);
 
-        Api.apiUrl(CONST.serverUrl || '');
-
-        $scope.$on('$routeChangeSuccess', function (scope, next, current) {
-            $scope.showCompanyName = next.$$route ? !!next.$$route.showCompanyName : false;
+        $scope.$on('$routeChangeSuccess', function (scope, next) {
+            $scope.showGameTitle = next.$$route ? !!next.$$route.showGameTitle : false;
         });
 
+        Api.apiUrl(CONST.serverUrl || '');
 
         $scope.showNotify = function(msg, type, delay){
             type = type || 'info'; // info | error | success
