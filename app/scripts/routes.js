@@ -16,6 +16,10 @@ App.config(['$routeProvider', function($routeProvider){
             controller: 'JudgingCtrl',
             showGameTitle: true
         })
+        .when('/users/invite', {
+            templateUrl: 'views/users/invite.html',
+            controller: 'SignupCtrl'
+        })
         .when('/signup', {
             templateUrl: 'views/users/signup.html',
             controller: 'SignupCtrl'

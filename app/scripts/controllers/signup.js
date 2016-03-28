@@ -31,4 +31,12 @@ function($scope, Api, $window, $rootScope, $routeParams, $location){
 
         }, $scope.showReqError);
     };
+
+    $scope.invite = function(){
+
+        Api.invite($scope.data).then(function(resp){
+            if($window.checkErrors(resp)) return;
+
+        }, $scope.showReqError);
+    };
 }]);
