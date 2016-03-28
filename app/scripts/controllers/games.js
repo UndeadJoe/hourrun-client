@@ -5,7 +5,7 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
     $scope.input = {};
     $scope.activeTab = 'parameters';
     $scope.selectedGame = {}; //selected game in nav list
-    $scope.selectedGameId = $routeParams.selectedId;
+    $scope.selectedGameId = $routeParams.gameId;
     $scope.selectedGameStatus = {};
     $scope.currentGame = {}; // more info about selected game
 

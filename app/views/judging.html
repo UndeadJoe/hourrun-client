@@ -1,0 +1,130 @@
+<div class="container games-page games-page-content">
+    <h2 class="text-center m0">Система судейства</h2>
+
+    <div class="games-nav">
+        <div class="toolbar">
+            <div>
+                <div class="form-group">
+                    <button type="button" class="form-control btn btn-primary" ng-click="input.showNewGameInput = !input.showNewGameInput"><i class="glyphicon glyphicon-plus"></i> Новая игра</button>
+                </div>
+                <div class="form-group input-group">
+                    <form role="form" ng-submit="newGame()" ng-show="input.showNewGameInput">
+                        <input type="text" class="form-control" id="new-game-title" ng-model="newGameTitle" ng-keydown="($event.which === 13 && newGameTitle) && newGame()" focus="input.showNewGameInput" placeholder="Название игры">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit" ng-disabled="!newGameTitle">Создать</button>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div>
+            <div class="form-group" ng-show="games.length">
+                <input type="text" class="form-control" ng-model="gameFilter.title" placeholder="Фильтр по названию" ng-keydown="$event.which === 27 && (gameFilter.title = '')">
+            </div>
+            <div class="list-group">
+                <li ng-repeat="game in games | orderBy:'title' | filter:gameFilter" class="list-group-item node-item games-page-content" ng-class="{'item-hover': selectedGame._id != game._id, 'list-group-item-info': selectedGame._id === game._id}">
+                    <div class="table-div">
+                        <div class="table-cell vmiddle" title="{{gameStatuses[game.status].msg}}">
+                            <i class="mr5 glyphicon" ng-class="gameStatuses[game.status].class + ' ' + gameStatuses[game.status].icon"></i>
+                        </div>
+                        <div class="table-cell vmiddle wp100 pr5" ng-click="selectedGame._id !== game._id && selectGame(game._id)">
+                            <a href="" ng-hide="isEditGame" class="ib wp100">{{game.title}}</a>
+							<span ng-show="isEditGame" class="input-group">
+								<input type="text" ng-model="game.newName" class="form-control" focus="isEditGame === true" ng-keydown="($event.which === 13) && (isEditGame = false || editGameName(game._id))">
+								<span class="input-group-btn">
+									<button type="button" ng-click="isEditGame = false || editGameName(game._id)" class="btn btn-default" ng-disabled="loadStatus.gameUpdate"><span class="glyphicon glyphicon-ok"></span></button>
+								</span>
+							</span>
+                        </div>
+                        <div class="table-cell vmiddle nowrap">
+                            <button type="button" class="btn btn-default glyphicon glyphicon-trash p5" ng-click="gameRemove(game._id)" title="Delete"></button>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <div class="games-content">
+        <div ng-if="selectedGame._id">
+            <div class="col-sm-8 col-lg-9 col-sm-offset-4 col-lg-offset-3">
+                <h3 class="m0 mb10 text-left">{{selectedGame.title}}</h3>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="list-group" ng-if="selectedGame.loaded">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-lg-3 control-label">Начало забега:</label>
+                        <div class="col-sm-8 col-lg-9">
+                            <p class="form-control-static">{{selectedGame.startedTime | date: 'dd.MM.yyyy HH:mm'}}&nbsp;</p>
+                        </div>
+                        <label class="col-sm-4 col-lg-3 control-label">Окончание забега:</label>
+                        <div class="col-sm-8 col-lg-9">
+                            <p class="form-control-static">{{selectedGame.stoppedTime | date: 'dd.MM.yyyy HH:mm'}}&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-horizontal form-group">
+                    <button class="col-sm-4 form-control btn btn-success" ng-click="startGame(selectedGame._id)">Начать игру</button>
+                    <button class="col-sm-4 form-control btn btn-success" ng-click="stopGame(selectedGame._id)">Остановить</button>
+                    <button class="col-sm-4 form-control btn btn-success" ng-click="restartGame(selectedGame._id)">Перезапустить</button>
+                </div>
+
+                <ul class="nav nav-tabs" role="tablist">
+                    <li ng-class="{'active': activeTab === 'parameters'}"><a href="" ng-click="activeTab = 'parameters'">Параметры</a></li>
+                    <li ng-class="{'active': activeTab === 'marks'}"><a href="" ng-click="activeTab = 'marks'">Ход забега (метки)</a></li>
+                    <li ng-class="{'active': activeTab === 'players'}"><a href="" ng-click="activeTab = 'players'">Участники</a></li>
+                    <li ng-class="{'active': activeTab === 'referee'}"><a href="" ng-click="activeTab = 'referee'">Судьи</a></li>
+                </ul>
+
+                <div class="pt20">
+                    <form class="form-horizontal" role="form" ng-submit="saveGame()" ng-show="activeTab === 'parameters'">
+
+                        <div class="form-group">
+                            <label class="col-sm-4 col-lg-3 control-label">Название забега</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" ng-model="selectedGame.title" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 col-lg-3 control-label">Дистанция (метры)</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" ng-model="selectedGame.distance" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 col-lg-3 control-label">Продолжительность забега (минуты)</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" ng-model="selectedGame.duration" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div><hr>
+                        <div>
+                            <div class="mt20 form-group">
+                                <div class="col-sm-8 col-lg-8 col-sm-offset-2 col-lg-offset-2">
+                                    <button type="submit" class="form-control btn btn-success">Сохранить игру</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div ng-show="activeTab === 'marks'">
+                        <li ng-repeat="mark in currentGame.marks" class="list-group-item node-item games-page-content">
+                            <div class="table-div">
+                                {{mark.date | date: 'HH:mm'}} - {{mark.number}}
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
