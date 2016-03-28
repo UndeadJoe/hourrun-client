@@ -9,6 +9,8 @@ App.controller('MainCtrl', ['$scope', '$timeout', '$location', '$window', '$root
         
         $rootScope.CONST = _.extend(CONST, CONST[CONST.config]);
 
+        bootbox.setDefaults({locale: "ru"});
+
         $scope.$on('$routeChangeSuccess', function (scope, next) {
             $scope.showGameTitle = next.$$route ? !!next.$$route.showGameTitle : false;
         });
