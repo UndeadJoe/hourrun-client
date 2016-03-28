@@ -95,6 +95,28 @@ function($scope, Api, $window, $routeParams, $location, Storage, $q, Utils){
         });
     };
 
+    $scope.gameRemove = function(id){
+
+        var game = Utils.searchInArrayById($scope.games, id);
+
+        if(!game || !confirm('Are you sure you want to delete "' + game.title + '"?')){
+            return false;
+        }
+
+        Api.gameRemove(id).then(function(resp){
+            if(resp.error == null) {
+                $scope.showNotify('Соревнование "' + game.title + '" удалено', 'success', 3);
+                getGames();
+            }
+            else {
+                $scope.showNotify('Невозможно удалить соревнование', 'error', 5);
+            }
+
+        }, function(resp){
+            $scope.showReqError(resp);
+        });
+    };
+
     $scope.stopGame = function(id){
 
         Api.gameStop(id).then(function(resp){
