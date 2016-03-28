@@ -12,13 +12,20 @@
 
         <div class="collapse navbar-collapse" id="header-bar">
             <ul class="nav navbar-nav">
-                <li><a href="#/games">Соревнования</a</li>
-                <li><a href="#/players">Участники</a</li>
-                <li ng-if="showGameTitle"><a href="#/games/{{selectedGameId}}">{{selectedGameName}}</a></li>
+                <li><a href="#/games">Соревнования</a></li>
+                <li><a href="#/players">Участники</a></li>
+                <li ng-show="showGameTitle"><a href="#/games/{{_id}}">{{title}}</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/users">Пользователи</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">Пользователи<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/players">Список пользователей</a></li>
+                        <li><a href="#/players/invite">Пригласить</a></li>
+                        <li><a href="#/players/roles">Типы аккаунтов</a></li>
+                    </ul>
+                </li>
                 <li><a href="#/profile">Профиль</a></li>
                 <li><a href="" ng-click="logout()">Выход</a></li>
             </ul>

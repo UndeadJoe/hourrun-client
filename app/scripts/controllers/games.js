@@ -4,9 +4,7 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
     $rootScope.pageTitle = "Соревнования";
     $scope.input = {};
     $scope.activeTab = 'parameters';
-    $scope.selectedGame = {}; //selected game in nav list
-    $scope.selectedGameId = $routeParams.gameId;
-    $scope.selectedGameStatus = {};
+    $scope.currentId = $routeParams.gameId;
     $scope.currentGame = {}; // more info about selected game
 
     $scope.gameStatuses = {};
@@ -39,7 +37,7 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
             angular.forEach($scope.games, function(game){
                 game.newName = game.title;
             });
-            $scope.selectedGameId && $scope.selectGame($scope.selectedGameId);
+            $scope.currentId && $scope.selectGame($scope.currentId);
         }, $scope.showReqError);
     }
 
@@ -49,19 +47,14 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
             Api.game(id).then(function(resp){
                 if($window.checkErrors(resp)) return;
                 $scope.currentGame = resp.game || {};
+                $scope.input.showAddGameAdminForm = false;
+                $scope.selectedGameStatus = $scope.gameStatuses[game.status];
+                $rootScope.pageTitle = $scope.currentGame.title;
+
+                $scope.$parent.id = $scope.currentGame._id;
+                $scope.$parent.title = $scope.currentGame.title;
+                $scope.currentGame.loaded = true;
             }, $scope.showReqError);
-
-            $scope.input.showAddGameAdminForm = false;
-            $scope.selectedGame = $scope.currentGame;
-
-            $scope.selectedGameId = id;
-            $scope.selectedGameStatus = $scope.gameStatuses[game.status];
-            $scope.$parent.selectedGameName = game.title;
-            $scope.$parent.selectedGameId = id;
-
-            $rootScope.pageTitle = game.title;
-
-            $scope.loadGame($scope.currentGame);
         }
     };
 
@@ -85,8 +78,8 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
         Api.gameStart(id).then(function(resp){
             if(resp.error == null) {
                 var data = (resp.result || {});
-                $scope.selectedGame.startedTime = data.startedTime || $scope.selectedGame.startedTime;
-                $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" запущено!', 'success', 3);
+                $scope.currentGame.startedTime = data.startedTime || $scope.currentGame.startedTime;
+                $scope.showNotify('Соревнование "' + $scope.currentGame.title + '" запущено!', 'success', 3);
             }
             else {
                 $scope.showNotify('Невозможно запустить соревнование', 'error', 5);
@@ -124,8 +117,8 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
         Api.gameStop(id).then(function(resp){
             if(resp.error == null) {
                 var data = (resp.result || {});
-                $scope.selectedGame.stoppedTime = data.stoppedTime || $scope.selectedGame.stoppedTime;
-                $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" остановленно!', 'success', 3);
+                $scope.currentGame.stoppedTime = data.stoppedTime || $scope.currentGame.stoppedTime;
+                $scope.showNotify('Соревнование "' + $scope.currentGame.title + '" остановленно!', 'success', 3);
             }
             else {
                 $scope.showNotify('Невозможно остановить соревнование', 'error', 5);
@@ -140,9 +133,9 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
 
         Api.gameRestart(id).then(function(resp){
             if(resp.error == null) {
-                $scope.selectedGame.startedTime = resp.result.startedTime;
-                $scope.selectedGame.stoppedTime = resp.result.stoppedTime;
-                $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" перезапущено!', 'success', 3);
+                $scope.currentGame.startedTime = resp.result.startedTime;
+                $scope.currentGame.stoppedTime = resp.result.stoppedTime;
+                $scope.showNotify('Соревнование "' + $scope.currentGame.title + '" перезапущено!', 'success', 3);
             }
             else {
                 $scope.showNotify('Невозможно повтороно запустить соревнование', 'error', 5);
@@ -155,30 +148,16 @@ function($scope, Api, $window, $rootScope, $routeParams, $location, Storage, $q,
 
     $scope.saveGame = function(){
         var newSettings = {
-            'title': $scope.selectedGame.title,
-            'distance': $scope.selectedGame.distance,
-            'duration': $scope.selectedGame.duration
+            'title': $scope.currentGame.title,
+            'distance': $scope.currentGame.distance,
+            'duration': $scope.currentGame.duration
         };
 
-        Api.gameSettingsObjSave($scope.selectedGameId,  newSettings).then(function(resp){
+        Api.gameSettingsObjSave($scope.currentGame._id,  newSettings).then(function(resp){
             if($window.checkErrors(resp)) return;
-            $scope.showNotify('Соревнование "' + $scope.selectedGame.title + '" сохранено', 'success', 3);
-            $scope.$parent.selectedGameName = $scope.selectedGame.title;
+            $scope.showNotify('Соревнование "' + $scope.currentGame.title + '" сохранено', 'success', 3);
 
-            $scope.selectGame($scope.selectedGameId);
+            $scope.selectGame($scope.currentGame,_id);
         }, $scope.showReqError);
-    };
-
-    $scope.loadGame = function(game) {
-        //Api.apiUrl('');
-        if (!game || !game._id) return;
-
-        game.loaded = true;
-        game.settings = {};
-        game.admins = [];
-        $scope.selectedGame = game;
-        Storage.set('selectedGame', game);
-
-        var auth = Storage.get('auth', {});
     };
 }]);

@@ -21,7 +21,7 @@ function($resource, CONST, $q, $http){
             game:           {method: 'GET', params: {action: 'games'}},
             gameRemove:     {method: 'DELETE', params: {action: 'games'}},
             newGame:        {method: 'POST', params: {action: 'games'}},
-            gameSave:       {method: 'PUT', params: {action: 'games'}},
+            gameSave:       {method: 'POST', params: {action: 'games'}},
             gameStart:      {method: 'PUT', params: {action: 'games'}},
             gameRestart:    {method: 'PUT', params: {action: 'games'}},
             gameStop:       {method: 'PUT', params: {action: 'games'}},
@@ -82,7 +82,7 @@ function($resource, CONST, $q, $http){
     };
 
     self.gameSettingsObjSave = function(id, data){
-        return q('gameSave', data, {param1: id, param2: 'update'});
+        return q('gameSave', data, {param1: id});
     };
 
     self.gameStart = function(id){
