@@ -30,7 +30,8 @@ App.config(['$routeProvider', function($routeProvider){
         })
         .when('/profile', {
             templateUrl: 'views/users/profile.html',
-            controller: 'ProfileCtrl'
+            controller: 'UsersCtrl',
+            showUserProfile: true
         })
         .otherwise({
             redirectTo: '/login'
