@@ -14,6 +14,9 @@ function($scope, Api, $window, $rootScope, $routeParams, $location){
     /* INIT */
     (function(){
         getRoles();
+        if ($routeParams['id']) {
+            findInvite();
+        }
     })();
     /* --INIT */
 
@@ -24,11 +27,26 @@ function($scope, Api, $window, $rootScope, $routeParams, $location){
         }, $scope.showReqError);
     }
 
+    function findInvite(){
+        Api.findInvite($scope.data.inviteID).then(function(resp){
+            if($window.checkErrors(resp) || resp.invite == null) return;
+
+            $scope.data.name = resp.invite.name;
+            $scope.data.name = resp.invite.surname;
+            $scope.data.email = resp.invite.email;
+            $scope.data.role = resp.invite.role;
+            $scope.data.password = '';
+
+        }, $scope.showReqError);
+    }
+
     $scope.signup = function(){
 
         Api.signup($scope.data).then(function(resp){
-            if($window.checkErrors(resp)) return;
-
+            if($window.checkErrors(resp)){
+                return false;
+            }
+            return $location.path('/games');
         }, $scope.showReqError);
     };
 

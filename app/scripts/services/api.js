@@ -15,6 +15,7 @@ function($resource, CONST, $q, $http){
             usersSession:   {method: 'POST', params: {action: 'users', param1: 'login'}},
             userProfile:    {method: 'GET', params: {action: 'users', param1: 'profile'}},
             signup:         {method: 'POST', params: {action: 'users', param1: 'signup'}},
+            findInvite:     {method: 'GET', params: {action: 'invite'}},
             invite:         {method: 'POST', params: {action: 'users', param1: 'invite'}},
             logout:         {method: 'GET', params: {action: 'users', param1: 'logout'}},
 
@@ -64,6 +65,10 @@ function($resource, CONST, $q, $http){
 
     self.invite = function(data){
         return q('invite', data);
+    };
+
+    self.findInvite = function(invite){
+        return q('findInvite', {}, {param1: invite});
     };
 
     self.logout = function(email){
