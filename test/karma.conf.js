@@ -24,7 +24,6 @@ module.exports = function(config) {
             // bower:js
             'app/bower_components/jquery/dist/jquery.js',
             'app/bower_components/es5-shim/es5-shim.js',
-            'app/bower_components/underscore/underscore.js',
             'app/bower_components/angular/angular.js',
             'app/bower_components/angular-route/angular-route.js',
             'app/bower_components/angular-loader/angular-loader.js',
@@ -33,6 +32,7 @@ module.exports = function(config) {
             'app/bower_components/angular-ui-tree/dist/angular-ui-tree.js',
             'app/bower_components/bootstrap/dist/js/bootstrap.js',
             'app/bower_components/bootbox.js/bootbox.js',
+            'app/bower_components/underscore/underscore.js',
             // endbower
             "app/scripts/**/*.js"
         ],
