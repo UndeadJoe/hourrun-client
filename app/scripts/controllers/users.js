@@ -1,13 +1,19 @@
-App.controller('UsersCtrl', ['$scope', 'Api', '$window', '$rootScope', '$routeParams', '$location',
-function($scope, Api, $window, $rootScope, $routeParams, $location){
+App.controller('UsersCtrl', ['$scope', '$route', 'Api', '$window', '$rootScope', '$routeParams', '$location',
+function($scope, $route, Api, $window, $rootScope, $routeParams, $location){
     $rootScope.pageTitle = "Список пользователей";
     $scope.users = {};
+    $scope.user = {};
     $scope.roles = {};
 
     /* INIT */
     (function(){
-        getRoles();
-        getUsers();
+        //getRoles();
+        if ($route.current.showUserProfile) {
+            getCurrentUser();
+        }
+        else {
+            getUsers();
+        }
     })();
     /* --INIT */
 
