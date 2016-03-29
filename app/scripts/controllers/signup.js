@@ -5,7 +5,7 @@ function($scope, Api, $window, $rootScope, $routeParams, $location){
     $scope.roles = {};
 
     $scope.data.inviteID = $routeParams['id'] || '';
-    $scope.disableCode = ($routeParams['id'] != null);
+    $scope.disableCode = ($routeParams['id'] != null); // Disable changes when invite exists
     $scope.disableRole = false;
     $scope.data.name = 'Иван';
     $scope.data.surname = 'Иванов';
@@ -38,7 +38,7 @@ function($scope, Api, $window, $rootScope, $routeParams, $location){
             $scope.data.email = resp.invite.email;
             $scope.data.role = resp.invite.role;
             $scope.data.password = '';
-            $scope.disableRole = (resp.invite.role != null);
+            $scope.disableRole = (resp.invite.role != null); // Disable changes when role exists in invite
 
         }, $scope.showReqError);
     }
@@ -46,10 +46,14 @@ function($scope, Api, $window, $rootScope, $routeParams, $location){
     $scope.signup = function(){
 
         Api.signup($scope.data).then(function(resp){
-            if($window.checkErrors(resp)){
+            if(resp.user == null){
+                $scope.showNotify('Ошибка регистрации пользователя', 'error', 5);
                 return false;
             }
-            return $location.path('/games');
+            else {
+                $scope.showNotify('Регистрация прошла успешно!', 'success', 3);
+                return $location.path('/games');
+            }
         }, $scope.showReqError);
     };
 
