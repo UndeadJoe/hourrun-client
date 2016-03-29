@@ -30,8 +30,8 @@
                 <div class="form-group row">
                     <label class="col-sm-4 control-label">Тип аккаунта</label>
                     <div class="col-sm-8">
-                        <select placeholder="Тип аккаунта" ng-model="data.role" class="form-control" required ng-disabled="disableRole">
-                            <option ng-value="item.id" ng-repeat="item in roles" ng-selected="(item.id==data.role)">{{ item.text }}</option>
+                        <select ng-model="data.role" class="form-control" required>
+                            <option ng-value="role.id" ng-repeat="role in roles" ng-selected="role.id==data.role">{{ role.text }}</option>
                         </select>
                     </div>
                 </div>

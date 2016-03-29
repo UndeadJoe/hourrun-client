@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="text-center m0">Список пользователей</h1>
+
+    <div class="col-sm-8 col-sm-offset-2">
+        <table class="table">
+            <thead class="thead-inverse"><tr>
+                <th>#</th>
+                <th>Email</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Типа аккаунта</th>
+            </tr></thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <th scope="row">{{ $index + 1 }}</th>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td>{{ user.roleText }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
