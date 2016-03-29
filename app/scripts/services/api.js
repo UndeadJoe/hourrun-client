@@ -1,5 +1,5 @@
-App.service('Api', ['$resource', 'Storage', 'CONST', '$q', '$http',
-function($resource, Storage, CONST, $q, $http){
+App.service('Api', ['$resource', 'CONST', '$q', '$http',
+function($resource, CONST, $q, $http){
     $http.defaults.withCredentials = true;
 
     var self = this;
