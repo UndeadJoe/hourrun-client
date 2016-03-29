@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-sm-8 col-sm-offset-3">
-            <form ng-submit="signup()" name="signupForm" class="form-horizontal">
+            <form ng-submit="saveProfile()" name="profileForm" class="form-horizontal">
                 <div class="form-group row">
                     <label class="col-sm-4 control-label">Имя</label>
                     <div class="col-sm-8"><input type="text" ng-model="user.name" class="form-control" required placeholder="Иван"></div>
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary wp50" ng-disabled="signupForm.$invalid">Обновить профиль</button>
+                    <button type="submit" class="btn btn-primary wp50" ng-disabled="profileForm.$invalid">Обновить профиль</button>
                 </div>
             </form>
         </div>

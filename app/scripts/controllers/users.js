@@ -25,7 +25,7 @@ function($scope, $route, Api, $window, $rootScope, $routeParams, $location){
     }
 
     function getUsers(){
-        Api.users().then(function(resp){
+        Api.userList().then(function(resp){
             if($window.checkErrors(resp)) return;
 
             $scope.users = resp.users;
@@ -41,4 +41,8 @@ function($scope, $route, Api, $window, $rootScope, $routeParams, $location){
 
         }, $scope.showReqError);
     }
+
+    $scope.saveProfile = function(){
+
+    };
 }]);
