@@ -1,5 +1,5 @@
-App.service('Api', ['$resource', 'CONST', '$q', '$http',
-function($resource, CONST, $q, $http){
+App.service('Api', ['$resource', 'Storage', 'CONST', '$q', '$http',
+function($resource, Storage, CONST, $q, $http){
     $http.defaults.withCredentials = true;
 
     var self = this;
@@ -56,7 +56,7 @@ function($resource, CONST, $q, $http){
         return q('usersSession', {email: email, password: password});
     };
 
-    self.users = function(){
+    self.userList = function(){
         return q('userList');
     };
 
