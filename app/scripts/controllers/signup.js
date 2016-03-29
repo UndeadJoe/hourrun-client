@@ -5,6 +5,8 @@ function($scope, Api, $window, $rootScope, $routeParams, $location){
     $scope.roles = {};
 
     $scope.data.inviteID = $routeParams['id'] || '';
+    $scope.disableCode = ($routeParams['id'] != null);
+    $scope.disableRole = false;
     $scope.data.name = 'Иван';
     $scope.data.surname = 'Иванов';
     $scope.data.email = 'mail@mail.ru';
@@ -32,10 +34,11 @@ function($scope, Api, $window, $rootScope, $routeParams, $location){
             if($window.checkErrors(resp) || resp.invite == null) return;
 
             $scope.data.name = resp.invite.name;
-            $scope.data.name = resp.invite.surname;
+            $scope.data.surname = resp.invite.surname;
             $scope.data.email = resp.invite.email;
             $scope.data.role = resp.invite.role;
             $scope.data.password = '';
+            $scope.disableRole = (resp.invite.role != null);
 
         }, $scope.showReqError);
     }
